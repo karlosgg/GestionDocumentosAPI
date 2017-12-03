@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DocumentoCreateDlg" widgetVar="DocumentoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDocumentoTitle}">
+            <h:form id="DocumentoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{documentoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDocumentoLabel_idDocumento}" for="idDocumento" />
+                        <p:inputText id="idDocumento" value="#{documentoController.selected.idDocumento}" title="#{bundle.CreateDocumentoTitle_idDocumento}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_idDocumento}"/>
+                        <p:outputLabel value="#{bundle.CreateDocumentoLabel_tituloDocumento}" for="tituloDocumento" />
+                        <p:inputText id="tituloDocumento" value="#{documentoController.selected.tituloDocumento}" title="#{bundle.CreateDocumentoTitle_tituloDocumento}" required="true" requiredMessage="#{bundle.CreateDocumentoRequiredMessage_tituloDocumento}"/>
+                        <p:outputLabel value="#{bundle.CreateDocumentoLabel_fechaAlmacenamiento}" for="fechaAlmacenamiento" />
+                        <p:calendar id="fechaAlmacenamiento" pattern="MM/dd/yyyy HH:mm:ss" value="#{documentoController.selected.fechaAlmacenamiento}" title="#{bundle.EditDocumentoTitle_fechaAlmacenamiento}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_fechaAlmacenamiento}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDocumentoLabel_idCategoria}" for="idCategoria" />
+                        <p:selectOneMenu id="idCategoria" value="#{documentoController.selected.idCategoria}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_idCategoria}">
+                            <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
+                                           var="idCategoriaItem"
+                                           itemValue="#{idCategoriaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDocumentoLabel_idUbicacion}" for="idUbicacion" />
+                        <p:selectOneMenu id="idUbicacion" value="#{documentoController.selected.idUbicacion}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_idUbicacion}">
+                            <f:selectItems value="#{ubicacionController.itemsAvailableSelectOne}"
+                                           var="idUbicacionItem"
+                                           itemValue="#{idUbicacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDocumentoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{documentoController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_idUsuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{documentoController.create}" value="#{bundle.Save}" update="display,:DocumentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DocumentoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DocumentoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

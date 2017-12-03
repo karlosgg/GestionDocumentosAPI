@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TelefonoEditDlg" widgetVar="TelefonoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTelefonoTitle}">
+            <h:form id="TelefonoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{telefonoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTelefonoLabel_idTelefono}" for="idTelefono" />
+                        <p:inputText id="idTelefono" value="#{telefonoController.selected.idTelefono}" title="#{bundle.EditTelefonoTitle_idTelefono}" required="true" requiredMessage="#{bundle.EditTelefonoRequiredMessage_idTelefono}"/>
+                        <p:outputLabel value="#{bundle.EditTelefonoLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{telefonoController.selected.telefono}" title="#{bundle.EditTelefonoTitle_telefono}" required="true" requiredMessage="#{bundle.EditTelefonoRequiredMessage_telefono}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{telefonoController.update}" value="#{bundle.Save}" update="display,:TelefonoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TelefonoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TelefonoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
