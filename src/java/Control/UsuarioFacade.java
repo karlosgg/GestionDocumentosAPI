@@ -29,4 +29,14 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         super(Usuario.class);
     }
     
+    public Usuario iniciarSesion(){
+	Usuario usuario = null;
+	String query;
+	try{
+		query="FROM Usuario u WHERE u";
+	}catch(Exception e){
+	
+	}
+	return usuario;
+}
 }
