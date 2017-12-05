@@ -34,7 +34,7 @@
                         <p:selectOneMenu id="idRol" value="#{usuarioController.selected.idRol}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idRol}">
                             <f:selectItems value="#{rolController.itemsAvailableSelectOne}"
                                            var="idRolItem"
-                                           itemValue="#{idRolItem}"/>
+                                           itemValue="#{idRolItem}" itemLabel="#{idRolItem.nombre}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
