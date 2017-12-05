@@ -5,6 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <h:head>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
        
         <title>Gestión de Archivos - <ui:insert name="title"></ui:insert></title>
@@ -353,9 +355,9 @@
                 </ul>
               </li>
               <li class="treeview">
-                <a href="#">
+                <a href="documentos.xhtml">
                   <i class="fa fa-files-o"></i>
-                  <span>Layout Options</span>
+                  <span>Documentos</span>
                   <span class="pull-right-container">
                     <span class="label label-primary pull-right">4</span>
                   </span>
@@ -532,6 +534,7 @@
 
           <!-- Main content -->
           <section class="content">
+          <ui:insert name="content">
             <!-- Small boxes (Stat box) -->
             <div class="row">
               <div class="col-lg-3 col-xs-6">
@@ -1023,7 +1026,7 @@
               <!-- right col -->
             </div>
             <!-- /.row (main row) -->
-
+          </ui:insert>
           </section>
           <!-- /.content -->
         </div>
