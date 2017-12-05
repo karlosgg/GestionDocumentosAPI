@@ -14,10 +14,12 @@
                     <p:panelGrid columns="2" rendered="#{categoriaController.selected != null}">
                         <h:outputText value="#{bundle.ViewCategoriaLabel_idCategoria}"/>
                         <h:outputText value="#{categoriaController.selected.idCategoria}" title="#{bundle.ViewCategoriaTitle_idCategoria}"/>
-                        <h:outputText value="#{bundle.ViewCategoriaLabel_idSubCategoria}"/>
-                        <h:outputText value="#{categoriaController.selected.idSubCategoria}" title="#{bundle.ViewCategoriaTitle_idSubCategoria}"/>
-                        <h:outputText value="#{bundle.ViewCategoriaLabel_nombreCategoria}"/>
-                        <h:outputText value="#{categoriaController.selected.nombreCategoria}" title="#{bundle.ViewCategoriaTitle_nombreCategoria}"/>
+                        <h:outputText value="#{bundle.ViewCategoriaLabel_nombre}"/>
+                        <h:outputText value="#{categoriaController.selected.nombre}" title="#{bundle.ViewCategoriaTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewCategoriaLabel_activo}"/>
+                        <p:selectBooleanCheckbox value="#{categoriaController.selected.activo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewCategoriaLabel_descripcion}"/>
+                        <h:outputText value="#{categoriaController.selected.descripcion}" title="#{bundle.ViewCategoriaTitle_descripcion}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="CategoriaViewDialog.hide()"/>
                 </h:panelGroup>

@@ -35,15 +35,21 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCategoriaTitle_idSubCategoria}"/>
+                                <h:outputText value="#{bundle.ListCategoriaTitle_nombre}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idSubCategoria}"/>
+                            <h:outputText value="#{item.nombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCategoriaTitle_nombreCategoria}"/>
+                                <h:outputText value="#{bundle.ListCategoriaTitle_activo}"/>
                             </f:facet>
-                            <h:outputText value="#{item.nombreCategoria}"/>
+                            <p:selectBooleanCheckbox value="#{item.activo}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCategoriaTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{categoriaController.prepareCreate}" update=":CategoriaCreateForm" oncomplete="PF('CategoriaCreateDialog').show()"/>

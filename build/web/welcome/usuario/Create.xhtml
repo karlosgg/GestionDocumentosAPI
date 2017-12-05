@@ -16,29 +16,25 @@
                         <p:inputText id="idUsuario" value="#{usuarioController.selected.idUsuario}" title="#{bundle.CreateUsuarioTitle_idUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_idUsuario}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{bundle.CreateUsuarioTitle_nombre}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombre}"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_apellido}" for="apellido" />
-                        <p:inputText id="apellido" value="#{usuarioController.selected.apellido}" title="#{bundle.CreateUsuarioTitle_apellido}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_apellido}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_apellidos}" for="apellidos" />
+                        <p:inputText id="apellidos" value="#{usuarioController.selected.apellidos}" title="#{bundle.CreateUsuarioTitle_apellidos}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_apellidos}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_dui}" for="dui" />
                         <p:inputText id="dui" value="#{usuarioController.selected.dui}" title="#{bundle.CreateUsuarioTitle_dui}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_dui}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_nit}" for="nit" />
                         <p:inputText id="nit" value="#{usuarioController.selected.nit}" title="#{bundle.CreateUsuarioTitle_nit}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nit}"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_idCargo}" for="idCargo" />
-                        <p:selectOneMenu id="idCargo" value="#{usuarioController.selected.idCargo}" >
-                            <f:selectItems value="#{cargoController.itemsAvailableSelectOne}"
-                                           var="idCargoItem"
-                                           itemValue="#{idCargoItem}" itemLabel="#{idCargoItem.cargo}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_idDireccion}" for="idDireccion" />
-                        <p:selectOneMenu id="idDireccion" value="#{usuarioController.selected.idDireccion}" >
-                            <f:selectItems value="#{direccionController.itemsAvailableSelectOne}"
-                                           var="idDireccionItem"
-                                           itemValue="#{idDireccionItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_idTelefono}" for="idTelefono" />
-                        <p:selectOneMenu id="idTelefono" value="#{usuarioController.selected.idTelefono}" >
-                            <f:selectItems value="#{telefonoController.itemsAvailableSelectOne}"
-                                           var="idTelefonoItem"
-                                           itemValue="#{idTelefonoItem}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{usuarioController.selected.direccion}" title="#{bundle.CreateUsuarioTitle_direccion}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_direccion}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{usuarioController.selected.activo}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_activo}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_nombreLoggin}" for="nombreLoggin" />
+                        <p:inputText id="nombreLoggin" value="#{usuarioController.selected.nombreLoggin}" title="#{bundle.CreateUsuarioTitle_nombreLoggin}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombreLoggin}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_contrasenia}" for="contrasenia" />
+                        <p:inputText id="contrasenia" value="#{usuarioController.selected.contrasenia}" title="#{bundle.CreateUsuarioTitle_contrasenia}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasenia}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_idRol}" for="idRol" />
+                        <p:selectOneMenu id="idRol" value="#{usuarioController.selected.idRol}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idRol}">
+                            <f:selectItems value="#{rolController.itemsAvailableSelectOne}"
+                                           var="idRolItem"
+                                           itemValue="#{idRolItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>

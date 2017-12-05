@@ -16,6 +16,12 @@
                         <h:outputText value="#{telefonoController.selected.idTelefono}" title="#{bundle.ViewTelefonoTitle_idTelefono}"/>
                         <h:outputText value="#{bundle.ViewTelefonoLabel_telefono}"/>
                         <h:outputText value="#{telefonoController.selected.telefono}" title="#{bundle.ViewTelefonoTitle_telefono}"/>
+                        <h:outputText value="#{bundle.ViewTelefonoLabel_activo}"/>
+                        <p:selectBooleanCheckbox value="#{telefonoController.selected.activo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTelefonoLabel_descripcion}"/>
+                        <h:outputText value="#{telefonoController.selected.descripcion}" title="#{bundle.ViewTelefonoTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewTelefonoLabel_idUsuario}"/>
+                        <h:outputText value="#{telefonoController.selected.idUsuario}" title="#{bundle.ViewTelefonoTitle_idUsuario}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="TelefonoViewDialog.hide()"/>
                 </h:panelGroup>

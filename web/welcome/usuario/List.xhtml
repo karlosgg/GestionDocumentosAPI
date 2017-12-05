@@ -41,9 +41,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_apellido}"/>
+                                <h:outputText value="#{bundle.ListUsuarioTitle_apellidos}"/>
                             </f:facet>
-                            <h:outputText value="#{item.apellido}"/>
+                            <h:outputText value="#{item.apellidos}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -59,21 +59,33 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_idCargo}"/>
+                                <h:outputText value="#{bundle.ListUsuarioTitle_direccion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idCargo}"/>
+                            <h:outputText value="#{item.direccion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_idDireccion}"/>
+                                <h:outputText value="#{bundle.ListUsuarioTitle_activo}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idDireccion}"/>
+                            <p:selectBooleanCheckbox value="#{item.activo}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_idTelefono}"/>
+                                <h:outputText value="#{bundle.ListUsuarioTitle_nombreLoggin}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idTelefono}"/>
+                            <h:outputText value="#{item.nombreLoggin}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTitle_contrasenia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contrasenia}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioTitle_idRol}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idRol}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>

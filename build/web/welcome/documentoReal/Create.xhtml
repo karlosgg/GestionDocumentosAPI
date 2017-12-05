@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DocumentoRealCreateDlg" widgetVar="DocumentoRealCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDocumentoRealTitle}">
+            <h:form id="DocumentoRealCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{documentoRealController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_idDocumentoReal}" for="idDocumentoReal" />
+                        <p:inputText id="idDocumentoReal" value="#{documentoRealController.selected.idDocumentoReal}" title="#{bundle.CreateDocumentoRealTitle_idDocumentoReal}" required="true" requiredMessage="#{bundle.CreateDocumentoRealRequiredMessage_idDocumentoReal}"/>
+                        <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_ubicacion}" for="ubicacion" />
+                        <p:inputText id="ubicacion" value="#{documentoRealController.selected.ubicacion}" title="#{bundle.CreateDocumentoRealTitle_ubicacion}" required="true" requiredMessage="#{bundle.CreateDocumentoRealRequiredMessage_ubicacion}"/>
+                        <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_emisot}" for="emisot" />
+                        <p:inputText id="emisot" value="#{documentoRealController.selected.emisot}" title="#{bundle.CreateDocumentoRealTitle_emisot}" required="true" requiredMessage="#{bundle.CreateDocumentoRealRequiredMessage_emisot}"/>
+                        <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_receptor}" for="receptor" />
+                        <p:inputText id="receptor" value="#{documentoRealController.selected.receptor}" title="#{bundle.CreateDocumentoRealTitle_receptor}" required="true" requiredMessage="#{bundle.CreateDocumentoRealRequiredMessage_receptor}"/>
+                        <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_fechaEmision}" for="fechaEmision" />
+                        <p:calendar id="fechaEmision" pattern="MM/dd/yyyy HH:mm:ss" value="#{documentoRealController.selected.fechaEmision}" title="#{bundle.EditDocumentoRealTitle_fechaEmision}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_fechaEmision}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{documentoRealController.selected.activo}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_activo}"/>
+                        <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_img}" for="img" />
+                        <p:inputTextarea rows="4" cols="30" id="img" value="#{documentoRealController.selected.img}" title="#{bundle.CreateDocumentoRealTitle_img}" required="true" requiredMessage="#{bundle.CreateDocumentoRealRequiredMessage_img}"/>
+                        <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{documentoRealController.selected.descripcion}" title="#{bundle.CreateDocumentoRealTitle_descripcion}" />
+                        <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_idCategoria}" for="idCategoria" />
+                        <p:selectOneMenu id="idCategoria" value="#{documentoRealController.selected.idCategoria}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_idCategoria}">
+                            <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
+                                           var="idCategoriaItem"
+                                           itemValue="#{idCategoriaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{documentoRealController.create}" value="#{bundle.Save}" update="display,:DocumentoRealListForm:datalist,:growl" oncomplete="handleSubmit(args,'DocumentoRealCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DocumentoRealCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

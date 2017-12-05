@@ -6,21 +6,18 @@
 package Modelo;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,22 +29,32 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Telefono.findAll", query = "SELECT t FROM Telefono t"),
     @NamedQuery(name = "Telefono.findByIdTelefono", query = "SELECT t FROM Telefono t WHERE t.idTelefono = :idTelefono"),
-    @NamedQuery(name = "Telefono.findByTelefono", query = "SELECT t FROM Telefono t WHERE t.telefono = :telefono")})
+    @NamedQuery(name = "Telefono.findByTelefono", query = "SELECT t FROM Telefono t WHERE t.telefono = :telefono"),
+    @NamedQuery(name = "Telefono.findByActivo", query = "SELECT t FROM Telefono t WHERE t.activo = :activo"),
+    @NamedQuery(name = "Telefono.findByDescripcion", query = "SELECT t FROM Telefono t WHERE t.descripcion = :descripcion")})
 public class Telefono implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "idTelefono", nullable = false)
     private Integer idTelefono;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "Telefono", nullable = false, length = 50)
+    @Size(min = 1, max = 20)
+    @Column(name = "telefono", nullable = false, length = 20)
     private String telefono;
-    @OneToMany(mappedBy = "idTelefono")
-    private List<Usuario> usuarioList;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "activo", nullable = false)
+    private boolean activo;
+    @Size(max = 200)
+    @Column(name = "descripcion", length = 200)
+    private String descripcion;
+    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario", nullable = false)
+    @ManyToOne(optional = false)
+    private Usuario idUsuario;
 
     public Telefono() {
     }
@@ -56,9 +63,10 @@ public class Telefono implements Serializable {
         this.idTelefono = idTelefono;
     }
 
-    public Telefono(Integer idTelefono, String telefono) {
+    public Telefono(Integer idTelefono, String telefono, boolean activo) {
         this.idTelefono = idTelefono;
         this.telefono = telefono;
+        this.activo = activo;
     }
 
     public Integer getIdTelefono() {
@@ -77,13 +85,28 @@ public class Telefono implements Serializable {
         this.telefono = telefono;
     }
 
-    @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
+    public boolean getActivo() {
+        return activo;
     }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Usuario getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     @Override

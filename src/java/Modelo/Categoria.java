@@ -31,8 +31,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
     @NamedQuery(name = "Categoria.findByIdCategoria", query = "SELECT c FROM Categoria c WHERE c.idCategoria = :idCategoria"),
-    @NamedQuery(name = "Categoria.findByIdSubCategoria", query = "SELECT c FROM Categoria c WHERE c.idSubCategoria = :idSubCategoria"),
-    @NamedQuery(name = "Categoria.findByNombreCategoria", query = "SELECT c FROM Categoria c WHERE c.nombreCategoria = :nombreCategoria")})
+    @NamedQuery(name = "Categoria.findByNombre", query = "SELECT c FROM Categoria c WHERE c.nombre = :nombre"),
+    @NamedQuery(name = "Categoria.findByActivo", query = "SELECT c FROM Categoria c WHERE c.activo = :activo"),
+    @NamedQuery(name = "Categoria.findByDescripcion", query = "SELECT c FROM Categoria c WHERE c.descripcion = :descripcion")})
 public class Categoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,15 +42,20 @@ public class Categoria implements Serializable {
     @NotNull
     @Column(name = "idCategoria", nullable = false)
     private Integer idCategoria;
-    @Column(name = "idSubCategoria")
-    private Integer idSubCategoria;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "nombreCategoria", nullable = false, length = 50)
-    private String nombreCategoria;
+    @Size(min = 1, max = 150)
+    @Column(name = "nombre", nullable = false, length = 150)
+    private String nombre;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "activo", nullable = false)
+    private boolean activo;
+    @Size(max = 200)
+    @Column(name = "descripcion", length = 200)
+    private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCategoria")
-    private List<Documento> documentoList;
+    private List<DocumentoReal> documentoRealList;
 
     public Categoria() {
     }
@@ -58,9 +64,10 @@ public class Categoria implements Serializable {
         this.idCategoria = idCategoria;
     }
 
-    public Categoria(Integer idCategoria, String nombreCategoria) {
+    public Categoria(Integer idCategoria, String nombre, boolean activo) {
         this.idCategoria = idCategoria;
-        this.nombreCategoria = nombreCategoria;
+        this.nombre = nombre;
+        this.activo = activo;
     }
 
     public Integer getIdCategoria() {
@@ -71,29 +78,37 @@ public class Categoria implements Serializable {
         this.idCategoria = idCategoria;
     }
 
-    public Integer getIdSubCategoria() {
-        return idSubCategoria;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setIdSubCategoria(Integer idSubCategoria) {
-        this.idSubCategoria = idSubCategoria;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getNombreCategoria() {
-        return nombreCategoria;
+    public boolean getActivo() {
+        return activo;
     }
 
-    public void setNombreCategoria(String nombreCategoria) {
-        this.nombreCategoria = nombreCategoria;
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @XmlTransient
-    public List<Documento> getDocumentoList() {
-        return documentoList;
+    public List<DocumentoReal> getDocumentoRealList() {
+        return documentoRealList;
     }
 
-    public void setDocumentoList(List<Documento> documentoList) {
-        this.documentoList = documentoList;
+    public void setDocumentoRealList(List<DocumentoReal> documentoRealList) {
+        this.documentoRealList = documentoRealList;
     }
 
     @Override

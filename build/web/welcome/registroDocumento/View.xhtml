@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RegistroDocumentoViewDlg" widgetVar="RegistroDocumentoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRegistroDocumentoTitle}">
+            <h:form id="RegistroDocumentoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{registroDocumentoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewRegistroDocumentoLabel_idRegistroDocumento}"/>
+                        <h:outputText value="#{registroDocumentoController.selected.idRegistroDocumento}" title="#{bundle.ViewRegistroDocumentoTitle_idRegistroDocumento}"/>
+                        <h:outputText value="#{bundle.ViewRegistroDocumentoLabel_fechaRegistro}"/>
+                        <h:outputText value="#{registroDocumentoController.selected.fechaRegistro}" title="#{bundle.ViewRegistroDocumentoTitle_fechaRegistro}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewRegistroDocumentoLabel_descripcion}"/>
+                        <h:outputText value="#{registroDocumentoController.selected.descripcion}" title="#{bundle.ViewRegistroDocumentoTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewRegistroDocumentoLabel_idDocumentoReal}"/>
+                        <h:outputText value="#{registroDocumentoController.selected.idDocumentoReal}" title="#{bundle.ViewRegistroDocumentoTitle_idDocumentoReal}"/>
+                        <h:outputText value="#{bundle.ViewRegistroDocumentoLabel_idUsuarioRegistrador}"/>
+                        <h:outputText value="#{registroDocumentoController.selected.idUsuarioRegistrador}" title="#{bundle.ViewRegistroDocumentoTitle_idUsuarioRegistrador}"/>
+                        <h:outputText value="#{bundle.ViewRegistroDocumentoLabel_idUsuarioRegistrado}"/>
+                        <h:outputText value="#{registroDocumentoController.selected.idUsuarioRegistrado}" title="#{bundle.ViewRegistroDocumentoTitle_idUsuarioRegistrado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="RegistroDocumentoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

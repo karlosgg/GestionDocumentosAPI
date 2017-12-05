@@ -11,8 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -36,48 +34,69 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
     @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
-    @NamedQuery(name = "Usuario.findByApellido", query = "SELECT u FROM Usuario u WHERE u.apellido = :apellido"),
+    @NamedQuery(name = "Usuario.findByApellidos", query = "SELECT u FROM Usuario u WHERE u.apellidos = :apellidos"),
     @NamedQuery(name = "Usuario.findByDui", query = "SELECT u FROM Usuario u WHERE u.dui = :dui"),
-    @NamedQuery(name = "Usuario.findByNit", query = "SELECT u FROM Usuario u WHERE u.nit = :nit")})
+    @NamedQuery(name = "Usuario.findByNit", query = "SELECT u FROM Usuario u WHERE u.nit = :nit"),
+    @NamedQuery(name = "Usuario.findByDireccion", query = "SELECT u FROM Usuario u WHERE u.direccion = :direccion"),
+    @NamedQuery(name = "Usuario.findByActivo", query = "SELECT u FROM Usuario u WHERE u.activo = :activo"),
+    @NamedQuery(name = "Usuario.findByNombreLoggin", query = "SELECT u FROM Usuario u WHERE u.nombreLoggin = :nombreLoggin"),
+    @NamedQuery(name = "Usuario.findByContrasenia", query = "SELECT u FROM Usuario u WHERE u.contrasenia = :contrasenia")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "idUsuario", nullable = false)
     private Integer idUsuario;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "nombre", nullable = false, length = 50)
+    @Size(min = 1, max = 150)
+    @Column(name = "nombre", nullable = false, length = 150)
     private String nombre;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "apellido", nullable = false, length = 50)
-    private String apellido;
+    @Size(min = 1, max = 150)
+    @Column(name = "apellidos", nullable = false, length = 150)
+    private String apellidos;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "dui", nullable = false, length = 50)
-    private String dui;
+    @Column(name = "dui", nullable = false)
+    private int dui;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "nit", nullable = false, length = 50)
-    private String nit;
+    @Column(name = "nit", nullable = false)
+    private int nit;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 250)
+    @Column(name = "direccion", nullable = false, length = 250)
+    private String direccion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "activo", nullable = false)
+    private boolean activo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "nombreLoggin", nullable = false, length = 100)
+    private String nombreLoggin;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "contrasenia", nullable = false, length = 100)
+    private String contrasenia;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuarioRegistrador")
+    private List<RegistroDocumento> registroDocumentoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuarioRegistrado")
+    private List<RegistroDocumento> registroDocumentoList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private List<Documento> documentoList;
-    @JoinColumn(name = "idCargo", referencedColumnName = "idCargo")
-    @ManyToOne
-    private Cargo idCargo;
-    @JoinColumn(name = "idDireccion", referencedColumnName = "idDireccion")
-    @ManyToOne
-    private Direccion idDireccion;
-    @JoinColumn(name = "idTelefono", referencedColumnName = "idTelefono")
-    @ManyToOne
-    private Telefono idTelefono;
+    private List<Correo> correoList;
+    @JoinColumn(name = "idRol", referencedColumnName = "idRol", nullable = false)
+    @ManyToOne(optional = false)
+    private Rol idRol;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private List<Telefono> telefonoList;
 
     public Usuario() {
     }
@@ -86,12 +105,16 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Integer idUsuario, String nombre, String apellido, String dui, String nit) {
+    public Usuario(Integer idUsuario, String nombre, String apellidos, int dui, int nit, String direccion, boolean activo, String nombreLoggin, String contrasenia) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
-        this.apellido = apellido;
+        this.apellidos = apellidos;
         this.dui = dui;
         this.nit = nit;
+        this.direccion = direccion;
+        this.activo = activo;
+        this.nombreLoggin = nombreLoggin;
+        this.contrasenia = contrasenia;
     }
 
     public Integer getIdUsuario() {
@@ -110,61 +133,104 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
-    public String getDui() {
+    public int getDui() {
         return dui;
     }
 
-    public void setDui(String dui) {
+    public void setDui(int dui) {
         this.dui = dui;
     }
 
-    public String getNit() {
+    public int getNit() {
         return nit;
     }
 
-    public void setNit(String nit) {
+    public void setNit(int nit) {
         this.nit = nit;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public String getNombreLoggin() {
+        return nombreLoggin;
+    }
+
+    public void setNombreLoggin(String nombreLoggin) {
+        this.nombreLoggin = nombreLoggin;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
     @XmlTransient
-    public List<Documento> getDocumentoList() {
-        return documentoList;
+    public List<RegistroDocumento> getRegistroDocumentoList() {
+        return registroDocumentoList;
     }
 
-    public void setDocumentoList(List<Documento> documentoList) {
-        this.documentoList = documentoList;
+    public void setRegistroDocumentoList(List<RegistroDocumento> registroDocumentoList) {
+        this.registroDocumentoList = registroDocumentoList;
     }
 
-    public Cargo getIdCargo() {
-        return idCargo;
+    @XmlTransient
+    public List<RegistroDocumento> getRegistroDocumentoList1() {
+        return registroDocumentoList1;
     }
 
-    public void setIdCargo(Cargo idCargo) {
-        this.idCargo = idCargo;
+    public void setRegistroDocumentoList1(List<RegistroDocumento> registroDocumentoList1) {
+        this.registroDocumentoList1 = registroDocumentoList1;
     }
 
-    public Direccion getIdDireccion() {
-        return idDireccion;
+    @XmlTransient
+    public List<Correo> getCorreoList() {
+        return correoList;
     }
 
-    public void setIdDireccion(Direccion idDireccion) {
-        this.idDireccion = idDireccion;
+    public void setCorreoList(List<Correo> correoList) {
+        this.correoList = correoList;
     }
 
-    public Telefono getIdTelefono() {
-        return idTelefono;
+    public Rol getIdRol() {
+        return idRol;
     }
 
-    public void setIdTelefono(Telefono idTelefono) {
-        this.idTelefono = idTelefono;
+    public void setIdRol(Rol idRol) {
+        this.idRol = idRol;
+    }
+
+    @XmlTransient
+    public List<Telefono> getTelefonoList() {
+        return telefonoList;
+    }
+
+    public void setTelefonoList(List<Telefono> telefonoList) {
+        this.telefonoList = telefonoList;
     }
 
     @Override

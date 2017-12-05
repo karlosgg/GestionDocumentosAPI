@@ -11,22 +11,18 @@
         <ui:define name="title">
             Documentos
         </ui:define>
-        
+        <ui:define name="dashboard">Documentos</ui:define>
+        <ui:define name="dashboard-li">Documentos</ui:define>
         <ui:define name="content">
             
             <h:form enctype="multipart/form-data">
-                <p:growl id="gowl2" showDetail="true" />
+                <p:growl id="gowl2" class="glowUp" showDetail="true" />
 
                 <p:fileUpload value="#{documentoUploadController.file}" mode="simple" />
 
                 <p:commandButton value="Submit" update="gowl2" ajax="false" actionListener="#{documentoUploadController.upload}" disabled="false" />
             </h:form>
         </ui:define>
-        
-    <!--<ui:define name="body">
-       
-        <p:outputLabel>Bienvenid@</p:outputLabel>            
-    </ui:define>
--->
+
     </ui:composition>
 </html>

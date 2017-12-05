@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DocumentoRealViewDlg" widgetVar="DocumentoRealViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDocumentoRealTitle}">
+            <h:form id="DocumentoRealViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{documentoRealController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_idDocumentoReal}"/>
+                        <h:outputText value="#{documentoRealController.selected.idDocumentoReal}" title="#{bundle.ViewDocumentoRealTitle_idDocumentoReal}"/>
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_ubicacion}"/>
+                        <h:outputText value="#{documentoRealController.selected.ubicacion}" title="#{bundle.ViewDocumentoRealTitle_ubicacion}"/>
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_emisot}"/>
+                        <h:outputText value="#{documentoRealController.selected.emisot}" title="#{bundle.ViewDocumentoRealTitle_emisot}"/>
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_receptor}"/>
+                        <h:outputText value="#{documentoRealController.selected.receptor}" title="#{bundle.ViewDocumentoRealTitle_receptor}"/>
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_fechaEmision}"/>
+                        <h:outputText value="#{documentoRealController.selected.fechaEmision}" title="#{bundle.ViewDocumentoRealTitle_fechaEmision}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_activo}"/>
+                        <p:selectBooleanCheckbox value="#{documentoRealController.selected.activo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_img}"/>
+                        <h:outputText value="#{documentoRealController.selected.img}" title="#{bundle.ViewDocumentoRealTitle_img}"/>
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_descripcion}"/>
+                        <h:outputText value="#{documentoRealController.selected.descripcion}" title="#{bundle.ViewDocumentoRealTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_idCategoria}"/>
+                        <h:outputText value="#{documentoRealController.selected.idCategoria}" title="#{bundle.ViewDocumentoRealTitle_idCategoria}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DocumentoRealViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
