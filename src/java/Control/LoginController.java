@@ -49,7 +49,7 @@ public class LoginController{
         if(username != null && username.equals("admin") && password != null && password.equals("admin")) {
             loggedIn = true;
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
-            redireccion = "dashboard";
+            redireccion = "welcome/dashboard.xhtml";
         } else {
             loggedIn = false;
             message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials");
@@ -57,7 +57,7 @@ public class LoginController{
          
         FacesContext.getCurrentInstance().addMessage(null, message);
         context.addCallbackParam("loggedIn", loggedIn);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("dashboard.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect(redireccion);
         return redireccion;
     }   
 }
