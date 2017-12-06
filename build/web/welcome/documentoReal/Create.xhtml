@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="DocumentoRealCreateDlg" widgetVar="DocumentoRealCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDocumentoRealTitle}">
+        <p:dialog id="DocumentoRealCreateDlg" widgetVar="DocumentoRealCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="#{bundle.CreateDocumentoRealTitle}">
             <h:form id="DocumentoRealCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{documentoRealController.selected != null}">
@@ -21,7 +21,7 @@
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_receptor}" for="receptor" />
                         <p:inputText id="receptor" value="#{documentoRealController.selected.receptor}" title="#{bundle.CreateDocumentoRealTitle_receptor}" required="true" requiredMessage="#{bundle.CreateDocumentoRealRequiredMessage_receptor}"/>
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_fechaEmision}" for="fechaEmision" />
-                        <p:calendar id="fechaEmision" pattern="MM/dd/yyyy HH:mm:ss" value="#{documentoRealController.selected.fechaEmision}" title="#{bundle.EditDocumentoRealTitle_fechaEmision}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_fechaEmision}" showOn="button"/>
+                        <p:calendar id="fechaEmision" pattern="MM/dd/yyyy" value="#{documentoRealController.selected.fechaEmision}" title="#{bundle.EditDocumentoRealTitle_fechaEmision}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_fechaEmision}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{documentoRealController.selected.activo}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_activo}"/>
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_documento}" for="documento" />
@@ -29,19 +29,14 @@
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{documentoRealController.selected.descripcion}" title="#{bundle.CreateDocumentoRealTitle_descripcion}" />
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_fechaRegistro}" for="fechaRegistro" />
-                        <p:calendar id="fechaRegistro" pattern="MM/dd/yyyy HH:mm:ss" value="#{documentoRealController.selected.fechaRegistro}" title="#{bundle.EditDocumentoRealTitle_fechaRegistro}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_fechaRegistro}" showOn="button"/>
+                        <p:calendar id="fechaRegistro" pattern="MM/dd/yyyy" value="#{documentoRealController.selected.fechaRegistro}" title="#{bundle.EditDocumentoRealTitle_fechaRegistro}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_fechaRegistro}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_idCategoria}" for="idCategoria" />
                         <p:selectOneMenu id="idCategoria" value="#{documentoRealController.selected.idCategoria}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_idCategoria}">
                             <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
                                            var="idCategoriaItem"
-                                           itemValue="#{idCategoriaItem}"/>
+                                           itemValue="#{idCategoriaItem}" itemLabel="#{idCategoriaItem.nombre}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_idUsuario}" for="idUsuario" />
-                        <p:selectOneMenu id="idUsuario" value="#{documentoRealController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_idUsuario}">
-                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
-                                           var="idUsuarioItem"
-                                           itemValue="#{idUsuarioItem}"/>
-                        </p:selectOneMenu>
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{documentoRealController.create}" value="#{bundle.Save}" update="display,:DocumentoRealListForm:datalist,:growl" oncomplete="handleSubmit(args,'DocumentoRealCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DocumentoRealCreateDialog.hide()"/>

@@ -11,15 +11,10 @@
         <ui:define name="title">
             Usuarios
         </ui:define>
-        
         <ui:define name="dashboard">Usuarios</ui:define>
-        
         <ui:define name="dashboard-li">Usuarios</ui:define>
-        
-               
-            
-        <!--<ui:define name="content">-->
-            <ui:define name="body">
+        <ui:define name="content">
+           <!-- <ui:define name="body">-->
             <h:form id="UsuarioListForm">
                 <p:panel header="#{bundle.ListUsuarioTitle}">
                     <p:dataTable id="datalist" value="#{usuarioController.items}" var="item"

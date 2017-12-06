@@ -14,7 +14,7 @@
         <ui:define name="dashboard">Documentos</ui:define>
         <ui:define name="dashboard-li">Documentos</ui:define>
         <ui:define name="content">
-            
+           
             <h:form enctype="multipart/form-data">
                 <p:growl id="gowl2" class="glowUp" showDetail="true" />
 
@@ -50,9 +50,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDocumentoRealTitle_emisot}"/>
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_emisor}"/>
                             </f:facet>
-                            <h:outputText value="#{item.emisot}"/>
+                            <h:outputText value="#{item.emisor}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -65,7 +65,7 @@
                                 <h:outputText value="#{bundle.ListDocumentoRealTitle_fechaEmision}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechaEmision}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
                         <p:column>
@@ -76,9 +76,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDocumentoRealTitle_img}"/>
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_documento}"/>
                             </f:facet>
-                            <h:outputText value="#{item.img}"/>
+                            <h:outputText value="#{item.documento}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -88,12 +88,26 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_fechaRegistro}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaRegistro}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDocumentoRealTitle_idCategoria}"/>
                             </f:facet>
                             <h:outputText value="#{item.idCategoria}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_idUsuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUsuario}"/>
+                        </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{documentoRealController.prepareCreate}"  oncomplete="PF('DocumentoRealCreateDialog').show()"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{documentoRealController.prepareCreate}" update=":DocumentoRealCreateForm" oncomplete="PF('DocumentoRealCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DocumentoRealViewForm" oncomplete="PF('DocumentoRealViewDialog').show()" disabled="#{empty documentoRealController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DocumentoRealEditForm" oncomplete="PF('DocumentoRealEditDialog').show()" disabled="#{empty documentoRealController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{documentoRealController.destroy}" update=":growl,datalist" disabled="#{empty documentoRealController.selected}"/>

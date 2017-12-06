@@ -3,6 +3,7 @@ package Control;
 import Modelo.DocumentoReal;
 import Control.util.JsfUtil;
 import Control.util.JsfUtil.PersistAction;
+import Modelo.Usuario;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -55,6 +57,8 @@ public class DocumentoRealController implements Serializable {
     }
 
     public void create() {
+        Usuario usuario=(Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        selected.setIdUsuario(usuario);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DocumentoRealCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
