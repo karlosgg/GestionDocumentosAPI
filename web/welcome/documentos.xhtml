@@ -40,7 +40,7 @@
                                 <h:outputLabel value="Ver Doc"/>
                             </f:facet>
                             <p:commandButton value="Ver" ajax="false" icon="ui-icon-arrowthick-1-s">
-                                <p:fileDownload value="#{documentoRealController.fileDescarga}" />
+                                <p:fileDownload value="#{documentoRealController.FileDownloadView(item.ubicacion)}" />
                             </p:commandButton>
                             
                         </p:column>
