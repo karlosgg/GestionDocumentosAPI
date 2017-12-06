@@ -8,9 +8,7 @@ package Control;
 import Modelo.Usuario;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 
 /**
  *
@@ -56,4 +54,15 @@ public class SessionController {
             
         }
     }
+     
+     public boolean isAdmin(){
+         boolean admin=false;
+         Usuario usuario=(Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+         if(usuario!=null){
+             if(usuario.getIdRol().getIdRol() == 1){
+                 admin=true;
+             }
+         }
+         return admin;
+     }
 }

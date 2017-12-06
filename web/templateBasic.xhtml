@@ -369,14 +369,16 @@
                 </a>
               </li>
               <li>
-                <a href="categorias.xhtml">
+              <a href="categorias.xhtml">
                   <i class="fa fa-th"></i> <span>Categorias</span>
                   <span class="pull-right-container">
                     <small class="label pull-right bg-green">new</small>
                   </span>
                 </a>
               </li>
+              
               <li>
+                  <p:column rendered="#{sessionController.admin}"> 
                 <a href="roles.xhtml">
                   <i class="fa fa-user"></i>
                   <span>Roles</span>
@@ -384,8 +386,10 @@
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
+                  </p:column>
               </li>
               <li>
+                  <p:column rendered="#{sessionController.admin}"> 
                 <a href="usuarios.xhtml">
                   <i class="fa fa-users"></i>
                   <span>Usuarios</span>
@@ -393,6 +397,7 @@
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
+                  </p:column>
               </li>
               <!--
               <li class="treeview">
