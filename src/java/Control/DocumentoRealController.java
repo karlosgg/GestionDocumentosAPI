@@ -120,13 +120,14 @@ public class DocumentoRealController implements Serializable {
     }
     private StreamedContent DocPath;
 	
-    public StreamedContent FileDownloadView(String path) {        
-        InputStream stream = this.getClass().getResourceAsStream(path); 
+	public void FileDownloadView() {        
+        InputStream stream = this.getClass().getResourceAsStream(selected.getDocumento()); 
                 //FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/demo/images/optimus.jpg");
 		DocPath = new DefaultStreamedContent(stream, "application/pdf", "downloaded_.pdf");
-                return DocPath;
 	}
- 
+    public StreamedContent getFileDescarga() {
+        return DocPath;
+    }
     public StreamedContent getFileDown() {
         return this.fileDown;
     }

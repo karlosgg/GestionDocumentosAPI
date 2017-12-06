@@ -10,6 +10,10 @@
 
         <p:dialog id="DocumentoRealViewDlg" widgetVar="DocumentoRealViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDocumentoRealTitle}">
             <h:form id="DocumentoRealViewForm">
+
+                            <p:commandButton value="Ver" ajax="false" icon="ui-icon-arrowthick-1-s">
+                                <p:fileDownload value="#{documentoRealController.fileDescarga}" />
+                            </p:commandButton>
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{documentoRealController.selected != null}">
                         <h:outputText value="#{bundle.ViewDocumentoRealLabel_idDocumentoReal}"/>

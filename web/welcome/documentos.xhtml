@@ -35,15 +35,7 @@
                             </f:facet>
                             <h:outputText value="#{item.idDocumentoReal}"/>
                         </p:column>-->
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputLabel value="Ver Doc"/>
-                            </f:facet>
-                            <p:commandButton value="Ver" ajax="false" icon="ui-icon-arrowthick-1-s">
-                                <p:fileDownload value="#{documentoRealController.FileDownloadView(item.ubicacion)}" />
-                            </p:commandButton>
-                            
-                        </p:column>
+
                         <p:column filterBy="#{item.ubicacion}" filterMatchMode="contains">
                             <f:facet name="header"  >
                                 <h:outputText value="#{bundle.ListDocumentoRealTitle_ubicacion}"/>
