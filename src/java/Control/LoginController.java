@@ -5,8 +5,10 @@
  */
 package Control;
 
+import Modelo.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import org.primefaces.context.RequestContext;
@@ -22,7 +24,9 @@ public class LoginController{
     private String username;
      
     private String password;
- 
+    @EJB
+    private Control.UsuarioFacade ejbFacade;
+    
     public String getUsername() {
         return username;
     }
@@ -45,9 +49,14 @@ public class LoginController{
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
         boolean loggedIn = false;
-         
-        if(username != null && username.equals("admin") && password != null && password.equals("admin")) {
+        Usuario usuario =null;
+        if(username!=null && password !=null){
+            usuario =ejbFacade.getUserb(username, password);
+        }
+        
+        if(usuario!=null) {
             loggedIn = true;
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
             redireccion = "welcome/dashboard.xhtml";
         } else {
@@ -60,4 +69,16 @@ public class LoginController{
         FacesContext.getCurrentInstance().getExternalContext().redirect(redireccion);
         return redireccion;
     }   
+    
+    public void logOut() throws IOException {
+        
+        String redireccion="";
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", null);
+        redireccion = "./../login.xhtml";
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Salir", "Hasta pronto");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+//        context.addCallbackParam("loggedIn", loggedIn);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(redireccion);
+        
+    }
 }

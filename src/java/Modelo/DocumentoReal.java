@@ -66,9 +66,8 @@ public class DocumentoReal implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "receptor", nullable = false, length = 150)
     private String receptor;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "fechaEmision", nullable = false)
+    @Basic(optional = true)
+    @Column(name = "fechaEmision", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEmision;
     @Basic(optional = false)

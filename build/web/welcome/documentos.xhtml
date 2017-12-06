@@ -23,12 +23,12 @@
                 <p:commandButton value="Subir" update="gowl" ajax="false" actionListener="#{documentoUploadController.upload}" disabled="false" />
             </h:form>
             
-            <h:form id="RegistroDocumentoListForm">
-                <p:panel header="#{bundle.ListRegistroDocumentoTitle}">
-                    <p:dataTable id="datalist" value="#{registroDocumentoController.items}" var="item"
-                                 selectionMode="single" selection="#{registroDocumentoController.selected}"
+           <h:form id="DocumentoRealListForm">
+                <p:panel header="#{bundle.ListDocumentoRealTitle}">
+                    <p:dataTable id="datalist" value="#{documentoRealController.items}" var="item"
+                                 selectionMode="single" selection="#{documentoRealController.selected}"
                                  paginator="true"
-                                 rowKey="#{item.idRegistroDocumento}"
+                                 rowKey="#{item.idDocumentoReal}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
@@ -38,55 +38,73 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRegistroDocumentoTitle_idRegistroDocumento}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idRegistroDocumento}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRegistroDocumentoTitle_fechaRegistro}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechaRegistro}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRegistroDocumentoTitle_descripcion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.descripcion}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRegistroDocumentoTitle_idDocumentoReal}"/>
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_idDocumentoReal}"/>
                             </f:facet>
                             <h:outputText value="#{item.idDocumentoReal}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRegistroDocumentoTitle_idUsuarioRegistrador}"/>
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_ubicacion}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idUsuarioRegistrador}"/>
+                            <h:outputText value="#{item.ubicacion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRegistroDocumentoTitle_idUsuarioRegistrado}"/>
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_emisot}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idUsuarioRegistrado}"/>
+                            <h:outputText value="#{item.emisot}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_receptor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.receptor}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_fechaEmision}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaEmision}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_activo}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.activo}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_img}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.img}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_idCategoria}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCategoria}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{registroDocumentoController.prepareCreate}" update=":RegistroDocumentoCreateForm" oncomplete="PF('RegistroDocumentoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RegistroDocumentoViewForm" oncomplete="PF('RegistroDocumentoViewDialog').show()" disabled="#{empty registroDocumentoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RegistroDocumentoEditForm" oncomplete="PF('RegistroDocumentoEditDialog').show()" disabled="#{empty registroDocumentoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{registroDocumentoController.destroy}" update=":growl,datalist" disabled="#{empty registroDocumentoController.selected}"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{documentoRealController.prepareCreate}"  oncomplete="PF('DocumentoRealCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DocumentoRealViewForm" oncomplete="PF('DocumentoRealViewDialog').show()" disabled="#{empty documentoRealController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DocumentoRealEditForm" oncomplete="PF('DocumentoRealEditDialog').show()" disabled="#{empty documentoRealController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{documentoRealController.destroy}" update=":growl,datalist" disabled="#{empty documentoRealController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>
 
-            <ui:include src="registroDocumento/Create.xhtml"/>
-            <ui:include src="registroDocumento/Edit.xhtml"/>
-            <ui:include src="registroDocumento/View.xhtml"/>
+            <ui:include src="documentoReal/Create.xhtml"/>
+            <ui:include src="documentoReal/Edit.xhtml"/>
+            <ui:include src="documentoReal/View.xhtml"/>
         </ui:define>
 
     </ui:composition>

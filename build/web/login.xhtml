@@ -7,6 +7,8 @@
    
     <f:view contentType="text/html">
         <h:head>
+            <f:event type="preRenderView" listener="#{sessionController.isLogged()}"/>
+            
             <h:outputStylesheet name="css/jsfcrud.css"/>
             <!-- Bootstrap 3.3.6 -->
             <h:outputStylesheet  name="bootstrap/css/bootstrap.min.css"/>

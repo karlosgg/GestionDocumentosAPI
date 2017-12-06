@@ -13,10 +13,12 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.UploadedFile;
 
 @Named("documentoRealController")
 @SessionScoped
@@ -37,7 +39,21 @@ public class DocumentoRealController implements Serializable {
     public void setSelected(DocumentoReal selected) {
         this.selected = selected;
     }
-
+      private UploadedFile file;
+ 
+    public UploadedFile getFile() {
+        return file;
+    }
+ 
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+     
+    public void upload() {
+        selected.setImg(file.getContents());  // Or getInputStream()
+ 
+        
+    }
     protected void setEmbeddableKeys() {
     }
 

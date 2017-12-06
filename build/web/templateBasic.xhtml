@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
        
         <title>Gestión de Archivos - <ui:insert name="title"></ui:insert></title>
+        <f:event type="preRenderView" listener="#{sessionController.isOpen()}"/>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
         <!-- Bootstrap 3.3.6 -->
@@ -301,7 +302,11 @@
                           <a href="#" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                            <h:form>
+                                <p:growl id="growl1" sticky="true" showDetail="true" life="3000" />
+                          <p:commandButton value="Salir" update="growl1" actionListener="#{loginController.logOut()}"
+                                 class="btn btn-default btn-flat" />
+                            </h:form>
                         </div>
                       </li>
                     </ul>

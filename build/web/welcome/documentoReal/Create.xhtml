@@ -9,6 +9,14 @@
     <ui:composition>
 
         <p:dialog id="DocumentoRealCreateDlg" widgetVar="DocumentoRealCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDocumentoRealTitle}">
+              <h:form enctype="multipart/form-data">
+                 <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_img}" for="img" />
+                <p:fileUpload id="img" value="#{documentoRealController.file}" mode="simple" />
+                <h:commandButton id="btnSubmit" actionListener="#{documentoUploadController.upload}" value="Save">
+                    <f:ajax execute="@all" render="@form" />
+                </h:commandButton> 
+               
+            </h:form>
             <h:form id="DocumentoRealCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{documentoRealController.selected != null}">
@@ -24,15 +32,14 @@
                         <p:calendar id="fechaEmision" pattern="MM/dd/yyyy HH:mm:ss" value="#{documentoRealController.selected.fechaEmision}" title="#{bundle.EditDocumentoRealTitle_fechaEmision}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_fechaEmision}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{documentoRealController.selected.activo}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_activo}"/>
-                        <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_img}" for="img" />
-                        <p:inputTextarea rows="4" cols="30" id="img" value="#{documentoRealController.selected.img}" title="#{bundle.CreateDocumentoRealTitle_img}" required="true" requiredMessage="#{bundle.CreateDocumentoRealRequiredMessage_img}"/>
+                        <!--<p:inputTextarea rows="4" cols="30" id="img" value="{documentoRealController.selected.img}" title="{bundle.CreateDocumentoRealTitle_img}" required="true" requiredMessage="{bundle.CreateDocumentoRealRequiredMessage_img}"/>-->
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{documentoRealController.selected.descripcion}" title="#{bundle.CreateDocumentoRealTitle_descripcion}" />
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_idCategoria}" for="idCategoria" />
                         <p:selectOneMenu id="idCategoria" value="#{documentoRealController.selected.idCategoria}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_idCategoria}">
                             <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
                                            var="idCategoriaItem"
-                                           itemValue="#{idCategoriaItem}"/>
+                                           itemValue="#{idCategoriaItem}" itemLabel="#{idCategoriaItem.nombre}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{documentoRealController.create}" value="#{bundle.Save}" update="display,:DocumentoRealListForm:datalist,:growl" oncomplete="handleSubmit(args,'DocumentoRealCreateDialog');"/>
