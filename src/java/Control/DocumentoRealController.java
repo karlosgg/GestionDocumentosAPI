@@ -25,6 +25,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 @Named("documentoRealController")
@@ -37,6 +39,7 @@ public class DocumentoRealController implements Serializable {
     private DocumentoReal selected;
     private UploadedFile file;
     private  String mensaje;
+    private StreamedContent fileDown;
 
     public String getMensaje() {
         return mensaje;
@@ -111,6 +114,23 @@ public class DocumentoRealController implements Serializable {
         return items;
     }
 
+    public void FileDownloadController() {
+        InputStream stream = this.getClass().getResourceAsStream(selected.getDocumento());
+        fileDown = new DefaultStreamedContent(stream, "application/pdf", "downloaded_file.pdf");
+    }
+    private StreamedContent DocPath;
+	
+	public void FileDownloadView() {        
+        InputStream stream = this.getClass().getResourceAsStream(selected.getDocumento()); 
+                //FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/demo/images/optimus.jpg");
+		DocPath = new DefaultStreamedContent(stream, "application/pdf", "downloaded_.pdf");
+	}
+    public StreamedContent getFileDescarga() {
+        return DocPath;
+    }
+    public StreamedContent getFileDown() {
+        return this.fileDown;
+    }
     public void upload(FileUploadEvent event) throws IOException {
         UploadedFile uploadedFile = event.getFile();
         String fileName = uploadedFile.getFileName();
