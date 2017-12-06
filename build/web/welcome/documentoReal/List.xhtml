@@ -41,9 +41,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDocumentoRealTitle_emisot}"/>
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_emisor}"/>
                             </f:facet>
-                            <h:outputText value="#{item.emisot}"/>
+                            <h:outputText value="#{item.emisor}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -67,9 +67,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDocumentoRealTitle_img}"/>
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_documento}"/>
                             </f:facet>
-                            <h:outputText value="#{item.img}"/>
+                            <h:outputText value="#{item.documento}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -79,9 +79,23 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_fechaRegistro}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaRegistro}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDocumentoRealTitle_idCategoria}"/>
                             </f:facet>
                             <h:outputText value="#{item.idCategoria}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDocumentoRealTitle_idUsuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUsuario}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{documentoRealController.prepareCreate}" update=":DocumentoRealCreateForm" oncomplete="PF('DocumentoRealCreateDialog').show()"/>

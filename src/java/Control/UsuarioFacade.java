@@ -30,8 +30,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public UsuarioFacade() {
         super(Usuario.class);
     }
-    
-    
+  
     public Usuario getUserb(String us, String pa){
          System.out.println("Usuario: "+us+" Contra: "+pa);
          Usuario usuario = null;
@@ -53,6 +52,4 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
       }
       return usuario;
     }
-    
-    
 }

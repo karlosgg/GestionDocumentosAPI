@@ -7,25 +7,20 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,11 +33,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "DocumentoReal.findAll", query = "SELECT d FROM DocumentoReal d"),
     @NamedQuery(name = "DocumentoReal.findByIdDocumentoReal", query = "SELECT d FROM DocumentoReal d WHERE d.idDocumentoReal = :idDocumentoReal"),
     @NamedQuery(name = "DocumentoReal.findByUbicacion", query = "SELECT d FROM DocumentoReal d WHERE d.ubicacion = :ubicacion"),
-    @NamedQuery(name = "DocumentoReal.findByEmisot", query = "SELECT d FROM DocumentoReal d WHERE d.emisot = :emisot"),
+    @NamedQuery(name = "DocumentoReal.findByEmisor", query = "SELECT d FROM DocumentoReal d WHERE d.emisor = :emisor"),
     @NamedQuery(name = "DocumentoReal.findByReceptor", query = "SELECT d FROM DocumentoReal d WHERE d.receptor = :receptor"),
     @NamedQuery(name = "DocumentoReal.findByFechaEmision", query = "SELECT d FROM DocumentoReal d WHERE d.fechaEmision = :fechaEmision"),
     @NamedQuery(name = "DocumentoReal.findByActivo", query = "SELECT d FROM DocumentoReal d WHERE d.activo = :activo"),
-    @NamedQuery(name = "DocumentoReal.findByDescripcion", query = "SELECT d FROM DocumentoReal d WHERE d.descripcion = :descripcion")})
+    @NamedQuery(name = "DocumentoReal.findByDocumento", query = "SELECT d FROM DocumentoReal d WHERE d.documento = :documento"),
+    @NamedQuery(name = "DocumentoReal.findByDescripcion", query = "SELECT d FROM DocumentoReal d WHERE d.descripcion = :descripcion"),
+    @NamedQuery(name = "DocumentoReal.findByFechaRegistro", query = "SELECT d FROM DocumentoReal d WHERE d.fechaRegistro = :fechaRegistro")})
 public class DocumentoReal implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,15 +56,16 @@ public class DocumentoReal implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 150)
-    @Column(name = "emisot", nullable = false, length = 150)
-    private String emisot;
+    @Column(name = "emisor", nullable = false, length = 150)
+    private String emisor;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 150)
     @Column(name = "receptor", nullable = false, length = 150)
     private String receptor;
-    @Basic(optional = true)
-    @Column(name = "fechaEmision", nullable = true)
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fechaEmision", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEmision;
     @Basic(optional = false)
@@ -76,17 +74,23 @@ public class DocumentoReal implements Serializable {
     private boolean activo;
     @Basic(optional = false)
     @NotNull
-    @Lob
-    @Column(name = "img", nullable = false)
-    private byte[] img;
+    @Size(min = 1, max = 250)
+    @Column(name = "documento", nullable = false, length = 250)
+    private String documento;
     @Size(max = 200)
     @Column(name = "descripcion", length = 200)
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDocumentoReal")
-    private List<RegistroDocumento> registroDocumentoList;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fechaRegistro", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaRegistro;
     @JoinColumn(name = "idCategoria", referencedColumnName = "idCategoria", nullable = false)
     @ManyToOne(optional = false)
     private Categoria idCategoria;
+    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario", nullable = false)
+    @ManyToOne(optional = false)
+    private Usuario idUsuario;
 
     public DocumentoReal() {
     }
@@ -95,14 +99,15 @@ public class DocumentoReal implements Serializable {
         this.idDocumentoReal = idDocumentoReal;
     }
 
-    public DocumentoReal(Integer idDocumentoReal, String ubicacion, String emisot, String receptor, Date fechaEmision, boolean activo, byte[] img) {
+    public DocumentoReal(Integer idDocumentoReal, String ubicacion, String emisor, String receptor, Date fechaEmision, boolean activo, String documento, Date fechaRegistro) {
         this.idDocumentoReal = idDocumentoReal;
         this.ubicacion = ubicacion;
-        this.emisot = emisot;
+        this.emisor = emisor;
         this.receptor = receptor;
         this.fechaEmision = fechaEmision;
         this.activo = activo;
-        this.img = img;
+        this.documento = documento;
+        this.fechaRegistro = fechaRegistro;
     }
 
     public Integer getIdDocumentoReal() {
@@ -121,12 +126,12 @@ public class DocumentoReal implements Serializable {
         this.ubicacion = ubicacion;
     }
 
-    public String getEmisot() {
-        return emisot;
+    public String getEmisor() {
+        return emisor;
     }
 
-    public void setEmisot(String emisot) {
-        this.emisot = emisot;
+    public void setEmisor(String emisor) {
+        this.emisor = emisor;
     }
 
     public String getReceptor() {
@@ -153,12 +158,12 @@ public class DocumentoReal implements Serializable {
         this.activo = activo;
     }
 
-    public byte[] getImg() {
-        return img;
+    public String getDocumento() {
+        return documento;
     }
 
-    public void setImg(byte[] img) {
-        this.img = img;
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
     public String getDescripcion() {
@@ -169,13 +174,12 @@ public class DocumentoReal implements Serializable {
         this.descripcion = descripcion;
     }
 
-    @XmlTransient
-    public List<RegistroDocumento> getRegistroDocumentoList() {
-        return registroDocumentoList;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setRegistroDocumentoList(List<RegistroDocumento> registroDocumentoList) {
-        this.registroDocumentoList = registroDocumentoList;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public Categoria getIdCategoria() {
@@ -184,6 +188,14 @@ public class DocumentoReal implements Serializable {
 
     public void setIdCategoria(Categoria idCategoria) {
         this.idCategoria = idCategoria;
+    }
+
+    public Usuario getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     @Override

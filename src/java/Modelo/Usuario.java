@@ -40,7 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByDireccion", query = "SELECT u FROM Usuario u WHERE u.direccion = :direccion"),
     @NamedQuery(name = "Usuario.findByActivo", query = "SELECT u FROM Usuario u WHERE u.activo = :activo"),
     @NamedQuery(name = "Usuario.findByNombreLoggin", query = "SELECT u FROM Usuario u WHERE u.nombreLoggin = :nombreLoggin"),
-    @NamedQuery(name = "Usuario.findByContrasenia", query = "SELECT u FROM Usuario u WHERE u.contrasenia = :contrasenia")})
+    @NamedQuery(name = "Usuario.findByContrasenia", query = "SELECT u FROM Usuario u WHERE u.contrasenia = :contrasenia"),
+    @NamedQuery(name = "Usuario.findByTelefono", query = "SELECT u FROM Usuario u WHERE u.telefono = :telefono"),
+    @NamedQuery(name = "Usuario.findByCorreo", query = "SELECT u FROM Usuario u WHERE u.correo = :correo")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -86,17 +88,21 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "contrasenia", nullable = false, length = 100)
     private String contrasenia;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuarioRegistrador")
-    private List<RegistroDocumento> registroDocumentoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuarioRegistrado")
-    private List<RegistroDocumento> registroDocumentoList1;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "telefono", nullable = false, length = 20)
+    private String telefono;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "correo", nullable = false, length = 100)
+    private String correo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private List<Correo> correoList;
+    private List<DocumentoReal> documentoRealList;
     @JoinColumn(name = "idRol", referencedColumnName = "idRol", nullable = false)
     @ManyToOne(optional = false)
     private Rol idRol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private List<Telefono> telefonoList;
 
     public Usuario() {
     }
@@ -105,7 +111,7 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Integer idUsuario, String nombre, String apellidos, int dui, int nit, String direccion, boolean activo, String nombreLoggin, String contrasenia) {
+    public Usuario(Integer idUsuario, String nombre, String apellidos, int dui, int nit, String direccion, boolean activo, String nombreLoggin, String contrasenia, String telefono, String correo) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -115,6 +121,8 @@ public class Usuario implements Serializable {
         this.activo = activo;
         this.nombreLoggin = nombreLoggin;
         this.contrasenia = contrasenia;
+        this.telefono = telefono;
+        this.correo = correo;
     }
 
     public Integer getIdUsuario() {
@@ -189,31 +197,29 @@ public class Usuario implements Serializable {
         this.contrasenia = contrasenia;
     }
 
-    @XmlTransient
-    public List<RegistroDocumento> getRegistroDocumentoList() {
-        return registroDocumentoList;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setRegistroDocumentoList(List<RegistroDocumento> registroDocumentoList) {
-        this.registroDocumentoList = registroDocumentoList;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
-    @XmlTransient
-    public List<RegistroDocumento> getRegistroDocumentoList1() {
-        return registroDocumentoList1;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setRegistroDocumentoList1(List<RegistroDocumento> registroDocumentoList1) {
-        this.registroDocumentoList1 = registroDocumentoList1;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     @XmlTransient
-    public List<Correo> getCorreoList() {
-        return correoList;
+    public List<DocumentoReal> getDocumentoRealList() {
+        return documentoRealList;
     }
 
-    public void setCorreoList(List<Correo> correoList) {
-        this.correoList = correoList;
+    public void setDocumentoRealList(List<DocumentoReal> documentoRealList) {
+        this.documentoRealList = documentoRealList;
     }
 
     public Rol getIdRol() {
@@ -222,15 +228,6 @@ public class Usuario implements Serializable {
 
     public void setIdRol(Rol idRol) {
         this.idRol = idRol;
-    }
-
-    @XmlTransient
-    public List<Telefono> getTelefonoList() {
-        return telefonoList;
-    }
-
-    public void setTelefonoList(List<Telefono> telefonoList) {
-        this.telefonoList = telefonoList;
     }
 
     @Override

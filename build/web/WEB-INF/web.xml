@@ -24,7 +24,7 @@
 
      <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/login.xhtml</location>
+        <location>/faces/login.xhtml</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>

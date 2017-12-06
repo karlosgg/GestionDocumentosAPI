@@ -16,8 +16,8 @@
                         <h:outputText value="#{documentoRealController.selected.idDocumentoReal}" title="#{bundle.ViewDocumentoRealTitle_idDocumentoReal}"/>
                         <h:outputText value="#{bundle.ViewDocumentoRealLabel_ubicacion}"/>
                         <h:outputText value="#{documentoRealController.selected.ubicacion}" title="#{bundle.ViewDocumentoRealTitle_ubicacion}"/>
-                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_emisot}"/>
-                        <h:outputText value="#{documentoRealController.selected.emisot}" title="#{bundle.ViewDocumentoRealTitle_emisot}"/>
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_emisor}"/>
+                        <h:outputText value="#{documentoRealController.selected.emisor}" title="#{bundle.ViewDocumentoRealTitle_emisor}"/>
                         <h:outputText value="#{bundle.ViewDocumentoRealLabel_receptor}"/>
                         <h:outputText value="#{documentoRealController.selected.receptor}" title="#{bundle.ViewDocumentoRealTitle_receptor}"/>
                         <h:outputText value="#{bundle.ViewDocumentoRealLabel_fechaEmision}"/>
@@ -26,12 +26,18 @@
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewDocumentoRealLabel_activo}"/>
                         <p:selectBooleanCheckbox value="#{documentoRealController.selected.activo}" disabled="true"/>
-                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_img}"/>
-                        <h:outputText value="#{documentoRealController.selected.img}" title="#{bundle.ViewDocumentoRealTitle_img}"/>
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_documento}"/>
+                        <h:outputText value="#{documentoRealController.selected.documento}" title="#{bundle.ViewDocumentoRealTitle_documento}"/>
                         <h:outputText value="#{bundle.ViewDocumentoRealLabel_descripcion}"/>
                         <h:outputText value="#{documentoRealController.selected.descripcion}" title="#{bundle.ViewDocumentoRealTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_fechaRegistro}"/>
+                        <h:outputText value="#{documentoRealController.selected.fechaRegistro}" title="#{bundle.ViewDocumentoRealTitle_fechaRegistro}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
                         <h:outputText value="#{bundle.ViewDocumentoRealLabel_idCategoria}"/>
                         <h:outputText value="#{documentoRealController.selected.idCategoria}" title="#{bundle.ViewDocumentoRealTitle_idCategoria}"/>
+                        <h:outputText value="#{bundle.ViewDocumentoRealLabel_idUsuario}"/>
+                        <h:outputText value="#{documentoRealController.selected.idUsuario}" title="#{bundle.ViewDocumentoRealTitle_idUsuario}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="DocumentoRealViewDialog.hide()"/>
                 </h:panelGroup>
