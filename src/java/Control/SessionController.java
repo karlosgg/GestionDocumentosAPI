@@ -65,4 +65,9 @@ public class SessionController {
          }
          return admin;
      }
+     
+    public Usuario user(){
+        Usuario usuario=(Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        return usuario;
+    }
 }
