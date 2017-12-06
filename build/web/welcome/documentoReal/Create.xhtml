@@ -9,6 +9,10 @@
     <ui:composition>
 
         <p:dialog id="DocumentoRealCreateDlg" widgetVar="DocumentoRealCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="#{bundle.CreateDocumentoRealTitle}">
+            <h:form enctype="multipart/form-data" id="upload2">
+                 <p:outputLabel id="gowl3" class="glowUp" value="#{documentoRealController.mensaje}" />
+                 <p:fileUpload fileUploadListener="#{documentoRealController.upload}" auto="true" update="gowl3" label="Adjuntar Documento" />
+            </h:form>
             <h:form id="DocumentoRealCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{documentoRealController.selected != null}">
@@ -24,8 +28,6 @@
                         <p:calendar id="fechaEmision" pattern="MM/dd/yyyy" value="#{documentoRealController.selected.fechaEmision}" title="#{bundle.EditDocumentoRealTitle_fechaEmision}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_fechaEmision}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{documentoRealController.selected.activo}" required="true" requiredMessage="#{bundle.EditDocumentoRealRequiredMessage_activo}"/>
-                        <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_documento}" for="documento" />
-                        <p:inputText id="documento" value="#{documentoRealController.selected.documento}" title="#{bundle.CreateDocumentoRealTitle_documento}" required="true" requiredMessage="#{bundle.CreateDocumentoRealRequiredMessage_documento}"/>
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{documentoRealController.selected.descripcion}" title="#{bundle.CreateDocumentoRealTitle_descripcion}" />
                         <p:outputLabel value="#{bundle.CreateDocumentoRealLabel_fechaRegistro}" for="fechaRegistro" />
@@ -42,6 +44,7 @@
                     <p:commandButton value="#{bundle.Cancel}" onclick="DocumentoRealCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
+            
         </p:dialog>
 
     </ui:composition>

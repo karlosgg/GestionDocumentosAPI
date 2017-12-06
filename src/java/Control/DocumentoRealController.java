@@ -4,6 +4,10 @@ import Modelo.DocumentoReal;
 import Control.util.JsfUtil;
 import Control.util.JsfUtil.PersistAction;
 import Modelo.Usuario;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,11 +18,14 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 @Named("documentoRealController")
 @SessionScoped
@@ -28,7 +35,24 @@ public class DocumentoRealController implements Serializable {
     private Control.DocumentoRealFacade ejbFacade;
     private List<DocumentoReal> items = null;
     private DocumentoReal selected;
+    private UploadedFile file;
+    private  String mensaje;
 
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+    public UploadedFile getFile() {
+        return file;
+    }
+ 
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+     
     public DocumentoRealController() {
     }
 
@@ -52,8 +76,10 @@ public class DocumentoRealController implements Serializable {
 
     public DocumentoReal prepareCreate() {
         selected = new DocumentoReal();
-        initializeEmbeddableKey();
+        initializeEmbeddableKey();        
+        mensaje="";
         return selected;
+
     }
 
     public void create() {
@@ -63,6 +89,7 @@ public class DocumentoRealController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        mensaje="";
     }
 
     public void update() {
@@ -84,6 +111,37 @@ public class DocumentoRealController implements Serializable {
         return items;
     }
 
+    public void upload(FileUploadEvent event) throws IOException {
+        UploadedFile uploadedFile = event.getFile();
+        String fileName = uploadedFile.getFileName();
+//        String contentType = uploadedFile.getContentType();
+//        byte[] contents = uploadedFile.getContents(); // Or getInputStream()
+//        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Succesful", fileName + " is uploaded.");
+//        FacesContext.getCurrentInstance().addMessage(null, message);
+          InputStream is = event.getFile().getInputstream();
+
+            //String folder = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/uploads");
+            String folder = "/home/karlos/NetBeansProjects/GestionDocumentosAPI/uploads";
+            String ruta = folder+"/"+fileName;
+            OutputStream os = new FileOutputStream(folder+"/"+fileName);
+            selected.setDocumento(ruta);
+            byte buf[] = new byte[1024];
+            int len;
+            while ((len = is.read(buf)) > 0) {
+                os.write(buf, 0, len);
+            }
+            os.close();
+            is.close();
+            System.out.println("Archivo subido: "+fileName);
+            //String filename = FilenameUtils.getBaseName(uploadedFile.getName()); 
+            //String extension = FilenameUtils.getExtension(uploadedFile.getName());
+            //Path file = Files.createTempFile(folder, filename + "-", "." + extension);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,"Succesful", fileName + " is uploaded."+folder);
+            mensaje="Documento "+fileName+" adjuntado";
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        
+    }
+    
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
